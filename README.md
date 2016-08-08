@@ -14,6 +14,12 @@ Requires:
 
 3) Switch;
 
+This has been tested on the following operating systems:
+
+* Redhat 5.11  
+* Redhat 6.5  
+
+*If it works for you on another O/S or version, please let me know and I'll update this list.*
 
 
 **<a name="pfrestore">pfrestore</a>**
