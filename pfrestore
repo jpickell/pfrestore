@@ -1,0 +1,93 @@
+#!/usr/bin/perl
+# Script to restore files that have been inadvertently changed w/Puppet.
+# Lists all files found in the local clientbucket (if any)
+# Requires root access
+
+use POSIX 'strftime';
+use File::Copy qw(copy);
+use Switch;
+
+#---- Update the following line to the location of the local clientbucket ----#
+$bucket="/opt/puppetlabs/puppet/cache/clientbucket";
+
+
+#---- Do not make any changes past this point ----#
+$root=$>;
+chomp $root; 
+
+if($root ne "0"){print("\nThis script must be executed as root.  Please sudo to root and try again.\n\n");exit;}
+if(! -e $bucket){print("\nSorry, there is no clientbucket at the configured location.\n\n");exit;}
+
+### Find the backup files and create the array
+@files = `find $bucket`;  # Get list of all files in clientbucket
+
+foreach $f(@files){
+        chomp $f;
+	if($f =~ /paths/){
+		chomp($file=`cat $f`);
+		($dev, $ino, $mode, $nlink, $uid, $gid, $rdev, $size, $atime, $mtime, $ctime, $blksize, $blocks)=stat($f);
+	        $mdate=strftime '%d/%m/%Y %H:%M:%S', localtime $mtime;
+		push(@restore, "$f|$file|$mdate");
+	}
+}
+######
+
+
+sub end(){
+        system("clear");
+        exit;
+}
+
+### Menu ####
+sub menu(){
+    $c=0;
+    system("clear");
+    print("The following files are available for restore:\n----------------------------------------------\n");
+    printf("%-4s| %-20s| %s \n", "Num", "Update Date", "Filename" );
+    print("----------------------------------------------\n");
+
+    foreach $r (@restore){
+	($location, $name, $dstamp)=split(/\|/, $r);
+	#print("[ $c ]\t$name\t\t (updated $dstamp)\n");
+	printf(" %-3s| %-20s| %s \n", $c, $dstamp, $name );
+	$c++;
+    }
+    print("\n\nEnter the number of the file to diff its contents with the active file or \"X\" to exit\n");
+}
+######
+
+### DIFF ###
+sub diff($){
+    $ANS=shift;
+    system("clear");
+    ($location, $name, $dstamp)=split(/\|/, $restore[$ANS]);
+    $location=~s/paths$//g;
+    $contents=`diff $location/contents $name`;
+    print("BACKUP   <====>  ACTIVE\n$contents");
+    print("\n\nWould you like to restore the backed up file? (This will copy the file out to /tmp)\n[ Y|N ]  ");
+    chomp($ans=<>);
+    if($ans =~ /y/i){
+	@n=split(/\//, $name);
+	$b=pop(@n);
+	print("\nCopying backup of $b to /tmp/$b...\n");
+        copy $name, "/tmp/$b";
+	if(-e "/tmp/$b"){
+		print("/tmp/$b has been created\n");	
+	}else{
+		print("An error occurred copying the file.  The backup may be found at $location for manual copy\n");
+	}
+	print("\nPress enter to continue\n");
+	chomp($ans=<>);
+    }
+}
+
+menu;
+
+while($ANS=<>){
+  chomp $ANS;
+  switch ($ANS) {
+        case /[0-9]+/   {diff($ANS);menu}
+ 	case /[xq]/i    {end}
+        case /^.+$/            {menu}
+  }
+}
