@@ -17,6 +17,7 @@ This has been tested on the following operating systems:
 
 * Redhat Enterprise Linux 5.11  
 * Redhat Enterprise Linux 6.5  
+* Redhat Enterprise Linux 7.2 
 * Apple OSX 10.11.6
 
 *If it works for you on another O/S or version, please let me know and I'll update this list.*
