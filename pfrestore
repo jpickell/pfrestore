@@ -5,7 +5,6 @@
 
 use POSIX 'strftime';
 use File::Copy qw(copy);
-use Switch;
 
 #---- Update the following line to the location of the local clientbucket ----#
 $bucket="/opt/puppetlabs/puppet/cache/clientbucket";
@@ -85,9 +84,9 @@ menu;
 
 while($ANS=<>){
   chomp $ANS;
-  switch ($ANS) {
-        case /[0-9]+/   {diff($ANS);menu}
- 	case /[xq]/i    {end}
-        case /^.+$/            {menu}
+  SWITCH: for ($ANS) {
+        /[0-9]+/   && do {diff($ANS);menu};
+ 	/[xq]/i    && do {end};
+        /^.+$/     && do {menu};
   }
 }

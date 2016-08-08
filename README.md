@@ -12,12 +12,12 @@ Requires:
 
 2) File::Copy qw(copy);
 
-3) Switch;
 
 This has been tested on the following operating systems:
 
 * Redhat Enterprise Linux 5.11  
 * Redhat Enterprise Linux 6.5  
+* Apple OSX 10.11.6
 
 *If it works for you on another O/S or version, please let me know and I'll update this list.*
 
@@ -45,4 +45,4 @@ Puppet will back up files to a "clientbucket" location on the local filesystem (
 ---
 
 
-Last Updated: Tue May 31 12:30:03 CDT 2016
+Last Updated: Mon Aug  8 18:27:26 CDT 2016
