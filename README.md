@@ -14,12 +14,12 @@ Puppet will back up files to a "clientbucket" location on the local filesystem (
 <a name="pfrestore">pfrestore</a> solves this by scouring all of the backup directories and providing a simple menu for recovering those files.  The recovered files will get written to the /tmp directory so you dont need to worry about Puppet overwriting them again as soon as youve recovered them.  
 
 
-<img src="http://www.jeffpickell.com/images/pfrestore.png" alt="Example showing a listing of files that have been replaced by Puppet">
+<img src="images/pfrestore.png" alt="Example showing a listing of files that have been replaced by Puppet">
 
 * Initial listing of changed files that are available for restore
 
 
-<img src="http://www.jeffpickell.com/images/pfrestore-diff.png" alt="Example showing the diff process and prompt for restore">
+<img src="images/pfrestore-diff.png" alt="Example showing the diff process and prompt for restore">
 * Diffing the backed up file with the active file and prompting for the restore to the /tmp directory
 
 
