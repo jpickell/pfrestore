@@ -16,8 +16,8 @@ Requires:
 
 This has been tested on the following operating systems:
 
-* Redhat 5.11  
-* Redhat 6.5  
+* Redhat Enterprise Linux 5.11  
+* Redhat Enterprise Linux 6.5  
 
 *If it works for you on another O/S or version, please let me know and I'll update this list.*
 
