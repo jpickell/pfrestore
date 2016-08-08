@@ -3,7 +3,7 @@
 
 A simple perl script (yes, there are a few of us graybeards that still find perl very useful) that provides a menu of files that Puppet has replaced on a given system.
 
-Inspired by <a href="https://github.com/andytinycat">AndyTinyCat</a>s Ruby script: <a href="https://github.com/andytinycat/puppet-clientbucket-restore">puppet-clientbucket-restore</a>  
+Inspired by <a href="https://github.com/andytinycat">AndyTinyCat's</a> Ruby script: <a href="https://github.com/andytinycat/puppet-clientbucket-restore">puppet-clientbucket-restore</a>  
 
 
 Requires:
