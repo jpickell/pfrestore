@@ -69,7 +69,7 @@ sub diff($){
 	@n=split(/\//, $name);
 	$b=pop(@n);
 	print("\nCopying backup of $b to /tmp/$b...\n");
-        copy $name, "/tmp/$b";
+        copy "$location/$name", "/tmp/$b";
 	if(-e "/tmp/$b"){
 		print("/tmp/$b has been created\n");	
 	}else{
